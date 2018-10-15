@@ -1,0 +1,53 @@
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["tsconfig.json"])
+
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+
+buildifier(
+    name = "buildifier",
+)
+
+load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+
+filegroup(
+    name = "node_modules",
+    srcs = glob(
+        include = [
+            "node_modules/**/*.js",
+            "node_modules/**/*.d.ts",
+            "node_modules/**/*.json",
+            "node_modules/.bin/*",
+        ],
+        exclude = [
+            # Files under test & docs may contain file names that
+            # are not legal Bazel labels (e.g.,
+            # node_modules/ecstatic/test/public/中文/檔案.html)
+            "node_modules/**/test/**",
+            "node_modules/**/docs/**",
+            # Files with spaces in the name are not legal Bazel labels
+            "node_modules/**/* */**",
+            "node_modules/**/* *",
+        ],
+    ),
+)
+
+# Create a tsc_wrapped compiler rule to use in the ts_library
+# compiler attribute when using self-managed dependencies
+nodejs_binary(
+    name = "@bazel/typescript/tsc_wrapped",
+    entry_point = "@bazel/typescript/tsc_wrapped/tsc_wrapped.js",
+    # The --expose-gc node option is required for tsc_wrapped
+    templated_args = ["--node_options=--expose-gc"],
+    # Point bazel to your node_modules to find the entry point
+    # node_modules = ["//:node_modules"],
+)
+
+# Create a karma rule to use in ts_web_test_suite karma
+# attribute when using self-managed dependencies
+nodejs_binary(
+    name = "karma/karma",
+    entry_point = "karma/bin/karma",
+    # Point bazel to your node_modules to find the entry point
+    # node_modules = ["//:node_modules"],
+)
