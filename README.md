@@ -36,4 +36,8 @@ It usually happens when the repository is not defined prior to being used.
 Reference the [WORKSPACE](https://github.com/google/startup-os/blob/master/WORKSPACE) from [google/startup-os](https://github.com/google/startup-os) to setup the typescript for now.
 
 
+### Tips
 
+ If all types are discovered then all types need to be included as deps
+ or typescript may error out with TS2688: Cannot find type definition file for 'foo'.
+ 
