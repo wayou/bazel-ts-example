@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@bazel/ibazel@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.6.0.tgz#b88a6b85e0d7d8adae9aeeba44763044658f1bab"
+
 "@bazel/karma@^0.20.2":
   version "0.20.2"
   resolved "https://registry.yarnpkg.com/@bazel/karma/-/karma-0.20.2.tgz#69b440e320eadce2b4c7de922f87c5fc539b6586"

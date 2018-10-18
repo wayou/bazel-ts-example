@@ -74,3 +74,4 @@ typings/
 
 .DS_Store
 ./bazel-*
+/dist

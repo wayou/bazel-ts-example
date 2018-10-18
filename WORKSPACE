@@ -6,7 +6,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
     name = "build_bazel_rules_nodejs",
     remote = "https://github.com/bazelbuild/rules_nodejs.git",
-    tag = "0.15.0",  # check for the latest tag when you install
+    tag = "0.15.1",  # check for the latest tag when you install
 )
 
 load("@build_bazel_rules_nodejs//:package.bzl", "rules_nodejs_dependencies")
@@ -30,11 +30,17 @@ yarn_install(
 
 #---------
 
-http_archive(
+# http_archive(
+#     name = "io_bazel_rules_webtesting",
+#     sha256 = "28c73cf9d310fa6dba30e66bdb98071341c99c3feb8662f2d3883a632de97d72",
+#     strip_prefix = "rules_webtesting-ca7b8062d9cf4ef2fde9193c7d37a0764c4262d7",
+#     url = "https://github.com/bazelbuild/rules_webtesting/archive/ca7b8062d9cf4ef2fde9193c7d37a0764c4262d7.zip",
+# )
+
+git_repository(
     name = "io_bazel_rules_webtesting",
-    sha256 = "28c73cf9d310fa6dba30e66bdb98071341c99c3feb8662f2d3883a632de97d72",
-    strip_prefix = "rules_webtesting-ca7b8062d9cf4ef2fde9193c7d37a0764c4262d7",
-    url = "https://github.com/bazelbuild/rules_webtesting/archive/ca7b8062d9cf4ef2fde9193c7d37a0764c4262d7.zip",
+    remote = "https://github.com/bazelbuild/rules_webtesting.git",
+    tag = "0.2.1",
 )
 
 http_archive(
@@ -67,6 +73,15 @@ load("@io_bazel_rules_go//go:def.bzl", "go_register_toolchains", "go_rules_depen
 go_rules_dependencies()
 
 go_register_toolchains()
+
+# Setup web testing, choose browsers we can test on
+load("@io_bazel_rules_webtesting//web:repositories.bzl", "browser_repositories", "web_test_repositories")
+
+web_test_repositories()
+
+browser_repositories(
+    chromium = True,
+)
 #---------
 
 ### buidifier

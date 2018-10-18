@@ -4,6 +4,7 @@
   "author": "wayou <liuwayong@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@bazel/ibazel": "^0.6.0",
     "@bazel/karma": "^0.20.2",
     "@bazel/typescript": "^0.20.2",
     "@types/lodash": "^4.14.117",
@@ -11,5 +12,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.11"
+  },
+  "scripts": {
+    "serve":"ibazel run src:devserver"
   }
 }
