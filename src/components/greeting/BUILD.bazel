@@ -8,8 +8,15 @@ ts_library(
         "greeting.tsx",
     ],
     deps = [
-        "@npm//@types",# this component does not dependent lodash but it needs the type definition, dont know why 
+        "@npm//@types",  # this component does not dependent lodash but it needs the type definition, dont know why
         "@npm//react",
         "@npm//react-dom",
     ],
+)
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library")
+
+sass_library(
+    name = "style_greeting",
+    srcs = ["greeting.scss"],
 )

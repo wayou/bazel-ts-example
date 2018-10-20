@@ -62,6 +62,20 @@ load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
 
+# sass
+http_archive(
+    name = "io_bazel_rules_sass",
+    strip_prefix = "rules_sass-1.14.3",
+    # Make sure to check for the latest version when you install
+    url = "https://github.com/bazelbuild/rules_sass/archive/1.14.3.zip",
+    # sha256 = "5ddde0d3df96978fa537f76e766538c031dee4d29f91a895f4b1345b5e3f9b16",
+)
+
+load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
+
+sass_repositories()
+# sass end
+
 http_archive(
     name = "io_bazel_rules_go",
     sha256 = "7519e9e1c716ae3c05bd2d984a42c3b02e690c5df728dc0a84b23f90c355c5a1",

@@ -16,6 +16,16 @@ ts_library(
     ],
 )
 
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
+
+sass_binary(
+    name = "app",
+    src = "app.scss",
+    deps = [
+        "//src/components/greeting:style_greeting",
+    ],
+)
+
 ts_devserver(
     name = "devserver",
     additional_root_paths = [
@@ -26,6 +36,7 @@ ts_devserver(
     serving_path = "/bundle.min.js",
     static_files = [
         "index.html",
+        "app.css",
         "//:node_modules/react/umd/react.development.js",
         "//:node_modules/react-dom/umd/react-dom.development.js",
     ],

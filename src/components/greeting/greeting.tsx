@@ -9,7 +9,7 @@ export default class Greeting extends Component<IGreetingProps> {
     return (
       <div className="greeting">
         hello,
-        {this.props.msg || "bazel"}!
+        <span className="name">{this.props.msg || "bazel"}</span> !
       </div>
     );
   }
