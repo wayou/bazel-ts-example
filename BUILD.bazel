@@ -7,3 +7,13 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 buildifier(
     name = "buildifier",
 )
+
+# dont know how to access react files via fine grained npm dependencies, temprarily using filegroup as a workaround
+# reference: https://github.com/thelgevold/react-bazel-example
+filegroup(
+    name = "node_modules",
+    srcs = glob([
+        "node_modules/react/**",
+        "node_modules/react-dom/**",
+    ]),
+)

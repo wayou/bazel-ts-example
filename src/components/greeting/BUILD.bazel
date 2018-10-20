@@ -1,0 +1,15 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver", "ts_library")
+
+ts_library(
+    name = "greeting",
+    srcs = [
+        "greeting.tsx",
+    ],
+    deps = [
+        "@npm//@types",# this component does not dependent lodash but it needs the type definition, dont know why 
+        "@npm//react",
+        "@npm//react-dom",
+    ],
+)

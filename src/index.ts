@@ -1,6 +1,3 @@
-import { sample } from "lodash";
-import names from "./foo/baz";
-// alert(1)
-// console.log(sample(names));
+import App from './app';
 
-document.body.innerHTML = sample(names) || "hello";
+new App()
