@@ -18,11 +18,7 @@
     "react-dom": "^16.5.2"
   },
   "scripts": {
-    "serve": "ibazel run src:devserver"
-  },
-  "peerDependencies": {
-    "ract": "^0.0.1",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "serve": "ibazel run src:devserver",
+    "stat": "git ls-files | wc -l | awk '{$1=$1;print $1 \" total\"}';git ls-files| sed 's/.*\\.//' | sort | uniq -c | sort -r|awk '{$1=$1;print}'"
   }
 }
