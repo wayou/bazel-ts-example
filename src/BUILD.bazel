@@ -32,7 +32,10 @@ ts_devserver(
         "bazel_ts_example/node_modules/react/umd",
         "bazel_ts_example/node_modules/react-dom/umd",
     ],
-    port = 3000,
+    entry_module = "bazel_ts_example/src/index",
+    scripts = [
+        "//src:boot_server.js",
+    ],
     serving_path = "/bundle.min.js",
     static_files = [
         "index.html",
