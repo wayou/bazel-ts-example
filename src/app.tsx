@@ -4,14 +4,14 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import Greeting from "./components/greeting/greeting";
+
+import Card from "./lib/Card/Card";
 
 export default class App {
   constructor() {
     ReactDOM.render(
       <div>
-        <Greeting msg="dude" />
-        <Greeting />
+        <Card></Card>
       </div>,
       document.querySelector("#app")
     );

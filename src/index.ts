@@ -1,3 +1,3 @@
-import App from './app';
+import App from './App';
 
 new App()

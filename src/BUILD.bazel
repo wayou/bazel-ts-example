@@ -5,11 +5,11 @@ load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver", "ts_library")
 ts_library(
     name = "ts_example",
     srcs = [
-        "app.tsx",
+        "App.tsx",
         "index.ts",
     ],
     deps = [
-        "//src/components/greeting",
+        "//src/lib/Card:card",
         "@npm//@types",
         "@npm//react",
         "@npm//react-dom",
@@ -20,9 +20,9 @@ load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 
 sass_binary(
     name = "app",
-    src = "app.scss",
+    src = "App.scss",
     deps = [
-        "//src/components/greeting:style_greeting",
+        "//src/lib/Card:card_style",
     ],
 )
 
@@ -34,12 +34,12 @@ ts_devserver(
     ],
     entry_module = "bazel_ts_example/src/index",
     scripts = [
-        "//src:boot_server.js",
+        "//src:bootstrap.js",
     ],
     serving_path = "/bundle.min.js",
     static_files = [
         "index.html",
-        "app.css",
+        "App.css",
         "//:node_modules/react/umd/react.development.js",
         "//:node_modules/react-dom/umd/react-dom.development.js",
     ],

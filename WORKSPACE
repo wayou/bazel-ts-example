@@ -46,8 +46,8 @@ git_repository(
 http_archive(
     name = "build_bazel_rules_typescript",
     # sha256 = "8f2767ff56ad68c80c62e9a1cdc2ba2c2ba0b19d350f713365e5333045df02e3",
-    strip_prefix = "rules_typescript-0.20.2",
-    url = "https://github.com/bazelbuild/rules_typescript/archive/0.20.2.zip",
+    strip_prefix = "rules_typescript-0.20.3",
+    url = "https://github.com/bazelbuild/rules_typescript/archive/0.20.3.zip",
     # sha256 = "8f2767ff56ad68c80c62e9a1cdc2ba2c2ba0b19d350f713365e5333045df02e3",
     # strip_prefix = "rules_typescript-0.13.0",
     # url = "https://github.com/bazelbuild/rules_typescript/archive/v0.13.0.zip",

@@ -3,9 +3,9 @@ package(default_visibility = ["//visibility:public"])
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver", "ts_library")
 
 ts_library(
-    name = "greeting",
+    name = "card",
     srcs = [
-        "greeting.tsx",
+        "Card.tsx",
     ],
     deps = [
         "@npm//@types",  # this component does not dependent lodash but it needs the type definition, dont know why
@@ -17,6 +17,6 @@ ts_library(
 load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library")
 
 sass_library(
-    name = "style_greeting",
-    srcs = ["greeting.scss"],
+    name = "card_style",
+    srcs = ["Card.scss"],
 )
