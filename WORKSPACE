@@ -30,13 +30,6 @@ yarn_install(
 
 #---------
 
-# http_archive(
-#     name = "io_bazel_rules_webtesting",
-#     sha256 = "28c73cf9d310fa6dba30e66bdb98071341c99c3feb8662f2d3883a632de97d72",
-#     strip_prefix = "rules_webtesting-ca7b8062d9cf4ef2fde9193c7d37a0764c4262d7",
-#     url = "https://github.com/bazelbuild/rules_webtesting/archive/ca7b8062d9cf4ef2fde9193c7d37a0764c4262d7.zip",
-# )
-
 git_repository(
     name = "io_bazel_rules_webtesting",
     remote = "https://github.com/bazelbuild/rules_webtesting.git",
@@ -45,12 +38,8 @@ git_repository(
 
 http_archive(
     name = "build_bazel_rules_typescript",
-    # sha256 = "8f2767ff56ad68c80c62e9a1cdc2ba2c2ba0b19d350f713365e5333045df02e3",
     strip_prefix = "rules_typescript-0.20.3",
     url = "https://github.com/bazelbuild/rules_typescript/archive/0.20.3.zip",
-    # sha256 = "8f2767ff56ad68c80c62e9a1cdc2ba2c2ba0b19d350f713365e5333045df02e3",
-    # strip_prefix = "rules_typescript-0.13.0",
-    # url = "https://github.com/bazelbuild/rules_typescript/archive/v0.13.0.zip",
 )
 
 # Fetch our Bazel dependencies that aren't distributed on npm
@@ -66,9 +55,7 @@ ts_setup_workspace()
 http_archive(
     name = "io_bazel_rules_sass",
     strip_prefix = "rules_sass-1.14.3",
-    # Make sure to check for the latest version when you install
     url = "https://github.com/bazelbuild/rules_sass/archive/1.14.3.zip",
-    # sha256 = "5ddde0d3df96978fa537f76e766538c031dee4d29f91a895f4b1345b5e3f9b16",
 )
 
 load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
