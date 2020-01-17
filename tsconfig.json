@@ -12,14 +12,10 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es5",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/core/types"
-    ],
     // Explicitly set types settings so typescript doesn't auto-discover types.
     // If all types are discovered then all types need to be included as deps
     // or typescript may error out with TS2688: Cannot find type definition file for 'foo'.
-    // "types": []
+    "types": []
   },
-  "include": ["src/**/*.{ts,tsx}"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

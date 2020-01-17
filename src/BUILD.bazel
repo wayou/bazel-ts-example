@@ -2,9 +2,9 @@ package(default_visibility = ["//visibility:public"])
 
 load("@npm_bazel_typescript//:index.bzl", "ts_devserver", "ts_library")
 load("@npm//webpack-cli:index.bzl", webpack = "webpack_cli")
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@io_bazel_rules_sass//:defs.bzl", sass = "sass_binary")
 
-sass_binary(
+sass(
     name = "styles",
     src = "index.scss",
 )

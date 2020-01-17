@@ -10,5 +10,6 @@ exports_files(
         "tsconfig.json",
         "webpack.config.js",
     ],
+    # https://docs.bazel.build/versions/master/skylark/build-style.html#visibility
     visibility = ["//:__subpackages__"],
 )
