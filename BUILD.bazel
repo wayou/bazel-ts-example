@@ -1,19 +1,14 @@
-package(default_visibility = ["//visibility:public"])
+# Add rules here to build your software
+# See https://docs.bazel.build/versions/master/build-ref.html#BUILD_files
 
-exports_files(["tsconfig.json"])
-
-load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
-
-buildifier(
-    name = "buildifier",
-)
-
-# dont know how to access react files via fine grained npm dependencies, temprarily using filegroup as a workaround
-# reference: https://github.com/thelgevold/react-bazel-example
-filegroup(
-    name = "node_modules",
-    srcs = glob([
-        "node_modules/react/**",
-        "node_modules/react-dom/**",
-    ]),
+# Allow any ts_library rules in this workspace to reference the config
+# Note: if you move the tsconfig.json file to a subdirectory, you can add an alias() here instead
+#   so that ts_library rules still use it by default.
+#   See https://www.npmjs.com/package/@bazel/typescript#installation
+exports_files(
+    [
+        "tsconfig.json",
+        "webpack.config.js",
+    ],
+    visibility = ["//:__subpackages__"],
 )

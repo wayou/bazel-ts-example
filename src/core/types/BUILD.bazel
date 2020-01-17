@@ -1,0 +1,14 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@npm_bazel_typescript//:index.bzl", "ts_library")
+# filegroup(
+#     name = "types",
+#     srcs = [
+#         "types.d.ts",
+#     ],
+# )
+
+ts_library(
+    name = "types",
+    srcs = ["types.d.ts"],
+)

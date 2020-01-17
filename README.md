@@ -17,15 +17,12 @@ Examples demonstrate building TypeScript with Bazel.
     </tr>
 </table>
 
-## Installing
-
-Following the [official guide](https://docs.bazel.build/versions/master/install.html) to install bazel.
 
 ## Build
 
-Run `bazel query ...` for all available labels.
+Run `bazel query ...` to see all available labels.
 
-Run `bazel run src/demo:devserver` to start local dev server.
+Run `yarn serve` to start local dev server with live reload.
 
 Run `yarn stat` to see file statistic of the repo. It will print number of each file extension.
 

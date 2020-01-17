@@ -1,1 +1,71 @@
 package(default_visibility = ["//visibility:public"])
+
+load("@npm_bazel_typescript//:index.bzl", "ts_devserver", "ts_library")
+load("@npm//webpack-cli:index.bzl", webpack = "webpack_cli")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+
+sass_binary(
+    name = "styles",
+    src = "index.scss",
+)
+
+ts_library(
+    name = "compile",
+    srcs = [
+        "foo.ts",
+        "index.tsx",
+    ],
+    deps = [
+        "//src/components/AppBar",
+        "//src/components/Footer",
+        "//src/core/types",
+        "@npm//@types/react",
+        "@npm//@types/react-dom",
+    ],
+)
+
+filegroup(
+    name = "app.js",
+    srcs = [
+        "compile",
+        "//src/components/AppBar",
+        "//src/components/Footer",
+    ],
+    # Change to es6_sources to get the 'prodmode' JS
+    output_group = "es6_sources",
+)
+
+webpack(
+    name = "bundle",
+    outs = ["app.bundle.js"],
+    args = [
+        "$(locations //src:app.js)",
+        "--config",
+        "$(location //:webpack.config.js)",
+        "-o",
+        # all arguments of the shell cmd
+        "$@",
+        "--mode",
+        "development",
+    ],
+    data = [
+        "//:webpack.config.js",
+        "//src:app.js",
+        "//src:styles",
+        "//src/components/AppBar:styles",
+        "//src/components/Footer:styles",
+        "@npm//:node_modules",
+    ],
+)
+
+ts_devserver(
+    name = "serve",
+    # entry_module = "bazel_ts_example/App",
+    port = 3000,
+    # This is the path we'll request from the browser, see index.html
+    serving_path = "/app.bundle.js",
+    # The devserver can serve our static files too
+    static_files = ["index.html"],
+    # We'll collect all the devmode JS sources from these TypeScript libraries
+    deps = [":bundle"],
+)

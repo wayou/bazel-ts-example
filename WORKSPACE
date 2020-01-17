@@ -1,26 +1,28 @@
-workspace(name = "bazel_ts_example")
-
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-git_repository(
-    name = "build_bazel_rules_nodejs",
-    remote = "https://github.com/bazelbuild/rules_nodejs.git",
-    tag = "0.15.1",  # check for the latest tag when you install
+workspace(
+    name = "bazel_ts_example",
+    managed_directories = {"@npm": ["node_modules"]},
 )
 
-load("@build_bazel_rules_nodejs//:package.bzl", "rules_nodejs_dependencies")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-rules_nodejs_dependencies()
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "e1a0d6eb40ec89f61a13a028e7113aa3630247253bcb1406281b627e44395145",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/1.0.1/rules_nodejs-1.0.1.tar.gz"],
+)
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "node_repositories")
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
 
 # NOTE: this rule installs nodejs, npm, and yarn, but does NOT install
 # your npm dependencies into your node_modules folder.
 # You must still run the package manager to do this.
-node_repositories(package_json = ["//:package.json"])
-
-load("@build_bazel_rules_nodejs//:defs.bzl", "yarn_install")
+# Specify version of node,yarn.
+# If omited, the `yarn_install` will do this by default
+node_repositories(
+    # node_version = "13.0.1",
+    package_json = ["//:package.json"],
+    # yarn_version = "1.19.1",
+)
 
 yarn_install(
     name = "npm",
@@ -28,71 +30,32 @@ yarn_install(
     yarn_lock = "//:yarn.lock",
 )
 
-#---------
+# Install all Bazel dependencies needed for npm packages that supply Bazel rules
+load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
-git_repository(
-    name = "io_bazel_rules_webtesting",
-    remote = "https://github.com/bazelbuild/rules_webtesting.git",
-    tag = "0.2.1",
-)
+install_bazel_dependencies()
 
-http_archive(
-    name = "build_bazel_rules_typescript",
-    strip_prefix = "rules_typescript-0.20.3",
-    url = "https://github.com/bazelbuild/rules_typescript/archive/0.20.3.zip",
-)
-
-# Fetch our Bazel dependencies that aren't distributed on npm
-load("@build_bazel_rules_typescript//:package.bzl", "rules_typescript_dependencies")
-
-rules_typescript_dependencies()
-
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_setup_workspace")
+load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
 
-# sass
+# sass setup
 http_archive(
     name = "io_bazel_rules_sass",
-    strip_prefix = "rules_sass-1.14.3",
-    url = "https://github.com/bazelbuild/rules_sass/archive/1.14.3.zip",
+    sha256 = "36e2442b2e9e986d8ac709bcc8fffb9d66363c1f3bba2459906c9f3eb744c069",
+    strip_prefix = "rules_sass-1.24.3",
+    # Make sure to check for the latest version when you install
+    url = "https://github.com/bazelbuild/rules_sass/archive/1.24.3.zip",
 )
 
-load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
+# Fetch required transitive dependencies. This is an optional step because you
+# can always fetch the required NodeJS transitive dependency on your own.
+load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
+
+rules_sass_dependencies()
+
+# Setup repositories which are needed for the Sass rules.
+load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
 
 sass_repositories()
-# sass end
-
-http_archive(
-    name = "io_bazel_rules_go",
-    sha256 = "7519e9e1c716ae3c05bd2d984a42c3b02e690c5df728dc0a84b23f90c355c5a1",
-    urls = ["https://github.com/bazelbuild/rules_go/releases/download/0.15.4/rules_go-0.15.4.tar.gz"],
-)
-
-load("@io_bazel_rules_go//go:def.bzl", "go_register_toolchains", "go_rules_dependencies")
-
-go_rules_dependencies()
-
-go_register_toolchains()
-
-# Setup web testing, choose browsers we can test on
-load("@io_bazel_rules_webtesting//web:repositories.bzl", "browser_repositories", "web_test_repositories")
-
-web_test_repositories()
-
-browser_repositories(
-    chromium = True,
-)
-#---------
-
-### buidifier
-http_archive(
-    name = "com_github_bazelbuild_buildtools",
-    strip_prefix = "buildtools-7926f6cd8f2568556b0efc23530743df4278e0fe",
-    url = "https://github.com/bazelbuild/buildtools/archive/7926f6cd8f2568556b0efc23530743df4278e0fe.zip",
-)
-
-load("@com_github_bazelbuild_buildtools//buildifier:deps.bzl", "buildifier_dependencies")
-
-buildifier_dependencies()
-### buidifier end
+# sass setup end

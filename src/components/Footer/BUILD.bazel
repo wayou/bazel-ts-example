@@ -1,0 +1,21 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+
+sass_binary(
+    name = "styles",
+    src = "Footer.scss",
+)
+
+ts_library(
+    name = "Footer",
+    srcs = [
+        "Footer.tsx",
+    ],
+    deps = [
+        "//src/core/types",
+        "@npm//@types/react",
+        "@npm//@types/react-dom",
+    ],
+)
