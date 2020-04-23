@@ -7,7 +7,7 @@ Examples demonstrate building TypeScript with Bazel.
         <td><a href="https://bazel.build/"><img src="https://bazel.build/images/bazel-icon.svg" height="120"/></a></td>
         <td><a href="http://www.typescriptlang.org/"><img src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png" height="120"/></a></td>
         <td><a href="https://nodejs.org/en/"><img src="https://nodejs.org/static/images/logo.svg" height="120"/></a></td>
-        <td><a href="https://yarnpkg.com/en/"><img src="https://yarnpkg.com/assets/feature-speed.png" height="120"/></a></td>
+        <td><a href="https://yarnpkg.com/en/"><img src="https://classic.yarnpkg.com/assets/feature-speed.png" height="120"/></a></td>
     </tr>
     <tr>
         <td>Bazel</td>
